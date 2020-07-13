@@ -1,0 +1,91 @@
+{% extends "myapp/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<body style="background-color:  rgb(255, 255, 224);">
+    
+
+<div class="container">
+    
+    <h2 class="with-line"> My Ratings: </h2>
+    <br>
+    {% for rating in ratings %}
+    <div class="card " style="width: 100%; border: 2px solid lightgrey; border-radius: 25px; padding-left: 20px; padding-bottom: 20px;">
+        
+        <div class="row">
+            <div class="col-lg-10">
+        <div class="card-body">
+         <h3> <button class="btn btn-primary btn-lg border pill" style=" pointer-events: none">{{rating.course}}  </button></h3> {% if rating.rating == 1 %} 
+         <span class="glyphicon glyphicon-star-empty " style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
+         {% endif %}
+
+         {% if rating.rating == 2 %} 
+         <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
+         {% endif %}
+
+         {% if rating.rating == 3 %} 
+         <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
+         {% endif %}
+         
+         {% if rating.rating == 4 %} 
+         <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
+         {% endif %}
+
+         {% if rating.rating == 5 %} 
+         <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+         <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+         {% endif %}
+            {% if rating.review %}
+            <h4 class="card-subtitle mb-2 text-muted">{{rating.review}}</h4>
+          {% else %}
+          <h4 class="card-subtitle mb-2 text-muted">No Review</h4>
+          {% endif %}
+          <h4 class="card-subtitle mb-2 text-muted"></h4>Difficulty: {{rating.difficulty}}/5</p>
+          {% if rating.anonymous %} 
+          <p class="card-text">Anonymous: Yes</p>
+          {% else %}
+          <p class="card-text">Anonymous: No</p>
+          {% endif %}   
+          <p class="card-text">{{rating.date_posted}}</p>
+        </div>
+    </div>
+        <div class="col-lg-2" style="padding-top: 7%;">
+          <a href="{% url 'delete-rating' rating.id %}" class="btn btn-danger btn-rounded align-items-right" role="button" aria-pressed="true">X</a>
+        </div>
+      </div> 
+      
+    
+    </div>
+    <br>
+    <br>
+      {% endfor %}
+            
+            
+        
+    </div>      
+    </div> <!-- END CARD-->     
+</div>  <!--    END CONTAINER-->
+<br>
+<br>
+<br>
+{% endblock %}
+</body>

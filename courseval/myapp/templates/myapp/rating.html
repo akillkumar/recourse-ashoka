@@ -1,0 +1,75 @@
+{% extends 'myapp/base.html' %}
+{% load crispy_forms_tags %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap" rel="stylesheet">
+{% block content %}
+
+{% if previous %}
+    <div class="container">
+        <h1>Woah there cowboy</h1>
+        <br>
+        <p>Looks like you've already rated this course.</p>
+        <p>If you want to change/delete your rating go to the my profile page.</p>
+        <br><br><br><br><br>
+
+    </div>
+{% else %}
+    <div class="container-fluid" style="background-color: rgb(255, 255, 224);">
+        <div class="container">
+        <div class="row">
+            <div class="col-lg-3" >
+
+            </div>
+
+            <div class="col-lg-6" style="background-color: rgb(255, 255, 224) ; padding-bottom: 20px;">
+            <div  style="background-color: rgb(255, 255, 224);">  <br> </div>
+                
+                <form method = "POST" style="background-color: white; border: 0.5px rgb(66, 66, 66) solid; border-radius: 25px;" >
+                    {% csrf_token %}
+                    
+                        <h2 class="text-center with-line" >Rate {{ course.course_name }}</h2>
+                        <br>  
+                        <ul style="list-style:none; align-items: center;">
+                        {{form.rating.label}}:    &nbsp;  {{form.rating}}
+                        <br>
+                        <br>
+                        {{form.difficulty.label}}:   &nbsp;   {{form.difficulty}}
+                        <br>
+                        <br>
+                        {{form.grade.label}}:    &nbsp;   {{form.grade}}
+                        <br>
+                        <br>
+                        {{form.take_again.label}}:  &nbsp;   {{form.take_again}}
+                        <br>
+                        <br>
+                        {{form.anonymous.label}}:  &nbsp;     {{form.anonymous}}
+                        <br>
+                        <br>  
+                        {{form.review.label}}:
+                        <br style="margin-bottom: 5px;">
+                        {{form.review}}
+                        </ul>        
+        
+                        
+                    </fieldset>
+                    <div class="form-group hidden-xs" style="margin-left: 80%;">
+                        <button class="btn btn-primary btn-outline-info " type="submit">Submit</button>
+                    </div>
+                    <div class="form-group visible-xs" style="margin-left: 60%; padding-bottom: 30px;">
+                            <button class="btn btn-primary btn-outline-info " type="submit">Submit</button>
+                        
+                    </div>
+                    
+                </form>        
+            </div>
+        </div>
+        </div>
+        </div>  
+            
+        
+    </div>
+    <br>
+    <br>
+    <br>
+{% endif %}
+
+{% endblock %}

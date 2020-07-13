@@ -1,0 +1,51 @@
+{% extends "myapp/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container" style="background-color: #FAFAFA; border:1px solid #EFEFEF;">
+    <br>
+    <div class="row">
+        <div class="col-lg-3">
+            <img src="{{professor.prof_pic}}" alt="" class="img-thumbnail">  
+        </div>
+
+    <h1 style="font-family: 'Poppins', sans-serif; font-size: 40px; font-weight: 900; ">{{professor.prof_name}}</h1>    
+    <h5>Department of {{professor.get_prof_dep_display}} </h5>
+    <br>
+    <br>
+   <h4> Courses Offered: </h4>
+    <ol class="text-left">
+    {% for course, name in my_courses %}
+     <li> <a href="{% url 'course-detail' course.slug %}">{{ name }} ({{ course }})</a></li>
+    {% endfor %}
+    </ol> 
+    </div> 
+</div>
+<h2 class="with-line">Cumulative Scores </h2>
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col-lg-3" style="border-right: black 1px solid;">
+            <h1 style="font-family: 'Poppins', sans-serif; font-size: 60px; font-weight: 900;">{{prof_rating}}</h1>
+           <h4>Proffesor Rating</h4>  
+        </div>
+        <div class="col-lg-3" style="border-right: black 1px solid;">
+            <h1 style="font-family: 'Poppins', sans-serif; font-size: 60px; font-weight: 900;">{{prof_difficulty}}</h1>
+           <h4>Proffesor Difficulty</h4>  
+        </div>
+        <div class="col-lg-3" style="border-right: black 1px solid;">
+            <h1 style="font-family: 'Poppins', sans-serif; font-size: 60px; font-weight: 900;">{{prof_grade}}</h1>
+           <h4>Proffesor Average Grade Point</h4>  
+        </div>
+        <div class="col-lg-3">
+            <h1 style="font-family: 'Poppins', sans-serif; font-size: 60px; font-weight: 900;">{{prof_retake}}%</h1>
+           <h4>Retake Percentage</h4>  
+        </div>
+    </div>
+</div>
+<br>
+<hr style="border: rgba(0, 0, 0, 0.788) 1px solid">
+        
+<br>
+<br>
+
+{% endblock %}

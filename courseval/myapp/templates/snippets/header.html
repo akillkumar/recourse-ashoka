@@ -1,0 +1,141 @@
+{% load static %}  
+{% load socialaccount %}
+{% providers_media_js %} 
+<nav class="navbar navbar-expand-md  hidden-xs"  >
+    <div class="container">
+        <!-- Nav Header -->
+        <div class="navbar-header " style="padding-right: 20px;">
+           <a href="{% url 'home' %}"> <img src="{% static 'images/logo.png' %}" alt="logo" height="60px" width="60px" style="padding-top: 7px;"> </a>
+        </div>
+        <!-- Nav Collapse -->
+        <div class="navbar-collapse collapse show " id="navbarToggleExternalContent" >
+            <!-- Nav Left -->
+            <ul class="nav navbar-nav">
+                <li style="padding-top: 7px;">      
+                    <a class="navbar-brand" href="{% url 'home' %}"><span class="fa fa-home"></span><span class="link"> Home</span></a>
+                </li>
+                <li style="padding-top: 7px;">
+                    <a style="color: white;" href="{% url 'courses' %}">
+                        <i class="fa fa-book" aria-hidden="true"></i>
+</span><span class="link"> Courses</span></a>
+                </li>
+                <li style="padding-top: 7px;">
+                    <a href="{% url 'professors' %}">
+                        <span class="fa fa-user-friends"></span><span class="link"> Professors</span></a>
+                </li>
+
+                <!-- Example dropdown structure 
+                <li class="dropdown" style="padding-top: 7px;">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="fas fa-user-friends"></span><span class="link"> Professors</span> <span class="fa fa-caret-down"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><span class="fa fa-gear"/></span> Service 1</a></li>
+                        <li><a href="#"><span class="fa fa-gear"/></span> Service 2</a></li>
+                        <li><a href="#"><span class="fa fa-gear"/></span> Service 3</a></li>
+                    </ul>
+                </li> -->
+
+                
+                <!-- About -->
+               
+            </ul>
+            <!-- Nav Right -->
+            <style>.has-search .form-control {
+                padding-left: 2.375rem;
+            }
+            
+            .has-search .form-control-feedback {
+                position: absolute;
+                z-index: 2;
+                display: block;
+                width: 2.375rem;
+                height: 2.375rem;
+                line-height: 2.375rem;
+                text-align: center;
+                pointer-events: none;
+                color: #aaa;
+            }</style>
+            <ul class="navbar-form navbar-right">
+                <div class="nav navbar-nav">
+                <li style="padding-top: 7px;">
+                <div class="form-group">
+                    <form method="GET" style="border-radius: 25px;" class="form-lg">
+                        <div class="form-group has-search">
+                        <span style="margin-top: 12px; margin-right: 100px;" class="fa fa-search form-control-feedback"></span>
+                        <input type="text" class="form-control form-lg" name="q" id="id_q" placeholder=" Search " style="border-radius: 25px;">
+                      </div>
+                       
+                    </form>
+                </div>
+                </li>
+           
+
+            <li class="padding-bottom:6px; padd">
+                {% if user.is_authenticated %}
+                <li class="dropdown" style="padding-top: 0px;">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span >Hello, {{user.first_name}}</span><span class="link"></span> <span class="fa fa-caret-down"></span></a>
+                    <ul class="dropdown-menu">
+                    <li><a href="{% url 'profile'%}"><span class="link"><span class="fas fa-address-card mb-4"></span> My profile</span></a></li>
+                    <li><a href="{% url 'logout' %}"><span class="link"><span class="fas fa-sign-in-alt mb-4"></span> Logout</span></a> </li>
+                    </ul>
+                </li> 
+                   
+                {% else %}
+                    <a href="{% provider_login_url "google" %}"><span class="fas fa-sign-in-alt mb-4"></span><span class="link">Login </span></a> 
+                {% endif %} 
+            </li>
+                
+            </ul>
+                
+        </div>
+    </div>
+   
+</nav>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light visible-xs">
+    
+    
+    <button style="margin-top: 17px; border: none; font-size: large;" class="navbar-toggler text-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <i style="color:white" class="fa fa-bars" aria-hidden="true"></i>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mr-auto mt-4 mt-lg-0" style="list-style: none;">
+        <li class="nav-item active" style="margin-top: 20px;">
+          <a style="color: white;" class="nav-link" href="{% url 'home' %}"><span class="fa fa-home"></span> Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a style="color: white;" class="nav-link" href="{% url 'courses' %}"><i style="color: white;" class="fa fa-book" aria-hidden="true"></i>
+            Courses</a>
+        </li>
+        <li class="nav-item">
+          <a style="color: white;" class="nav-link " href="{% url 'professors' %}"><span class="fa fa-user-friends"></span> Professors</a>
+        </li>
+        <li class="nav-item">
+            {% if user.is_authenticated %}
+                <li class="dropdown" style="padding-top: 0px;">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span >Hello, {{user.first_name}}</span><span class="link"></span> <span class="fa fa-caret-down"></span></a>
+                    <ul class="dropdown-menu">
+                    <li><a href="{% url 'profile'%}"><span class="link"><span class="fas fa-address-card mb-4"></span> My profile</span></a></li>
+                    <li><a href="{% url 'logout' %}"><span class="link"><span class="fas fa-sign-in-alt mb-4"></span> Logout</span></a> </li>
+                    </ul>
+                </li> 
+                   
+                {% else %}
+                    <a href="{% provider_login_url "google" %}"><span class="fas fa-sign-in-alt mb-4"></span><span class="link">Login </span></a> 
+                {% endif %} 
+
+        </li>
+      </ul>
+      <form method="GET" style="border-radius: 25px; padding-bottom: 3px;" class="form-lg">
+        <div class="form-group has-search  ">
+        <input style="margin-bottom: 5px;" type="text" class="form-control form-lg" name="q" id="id_q" placeholder=" Search " style="border-radius: 25px;">
+      </div>
+       
+    </form>
+    </div>
+  </nav>

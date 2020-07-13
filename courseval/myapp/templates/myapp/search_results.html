@@ -1,0 +1,66 @@
+{% extends 'myapp/base.html' %}
+
+{% block content %}
+
+{% if courses %}
+<div class="container">
+    <h2 class="with-line">Courses</h2>
+    <div class="row">
+        {% for course in courses %}
+        <article class="media content-section border rounded" style= "background-color: rgb(238, 238, 238); ">
+            <div class="media body">
+                <div class="course-metadata">
+                    <h3> <a href="{% url 'course-detail' course.slug %}" style="color:Black;">{{ course.course_name }} ({{course.course_listing}}-{{course.course_code}})</a></h1>
+                    <h4> {{ course.course_prof }}</h4>
+                    <h5 style="background-color: maroon; color: white; pointer-events: none; " class="btn  btn-rounded mx-auto font-weight-bold">{{ course.course_rating }} <i class="fas fa-star"></i> rating</h5>
+                    <h5 style="background-color: maroon; color: white; pointer-events: none;" class="btn  btn-rounded mx-3">{{ course.course_difficulty }} <i class="fas fa-thermometer-quarter"></i> difficulty</h5>
+                    <h5  style="background-color: maroon; color: white; pointer-events: none;" class="btn  btn-rounded mx-auto">{{course.grade_point}} <i class="fas fa-tachometer-alt"></i> Grade </h5>
+                    <h5 style="background-color: maroon; color:  white;pointer-events: none;" class="btn  btn-rounded mx-auto">{{ course.course_number_of_ratings }}   <i class="fas fa-calculator"></i> ratings</h5>
+
+                        
+                </div>
+            </div>
+            </article>  
+        {% endfor %}
+    </div>
+</div>
+<br><br>
+{% endif %}
+
+{% if profs%}
+<div class="container">
+    <h2 class="with-line">Professorrs</h2>
+    <div class="row">
+        {% for prof in profs %}
+        <div class="col-lg-3">
+        <div class="card" style="width:400px">
+            <img class="card-img-top" src="{{prof.prof_pic}}" alt="Card image" width="250px" height="250px">
+            <div class="card-body">
+              <h4 class="card-title">{{prof}}</h4>
+              <p class="card-text">{{prof.department}}</p>
+              <a href="{% url 'professor-detail' prof.slug %}" class="btn btn-primary">See Profile</a>
+            </div>
+          </div>
+        </div>
+        
+        {% endfor %}
+    </div>
+</div>
+<br><br><br><br>
+{% endif %}
+
+{% if not courses and not profs %}
+<div class="container">
+    <div class="row">
+        <div class="card m-auto">
+            <div class="card-body mt-2 mb-2">
+                <h2 class="card-title">No Results</h2>
+                <p class="card-text">There were no results matching your search: "{{ query }}"</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+{% endblock %}

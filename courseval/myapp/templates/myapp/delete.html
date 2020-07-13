@@ -1,0 +1,22 @@
+{% extends 'myapp/base.html' %}
+
+{% block content %}
+    {% if error %}
+        <div class="container">
+            <h1>{{ error }}</h1>
+            <br><br><br>
+        </div>
+    {% else %}
+        <br><br>
+        <div class="container">
+            <div class="content-section">
+                
+            <form method="post">{% csrf_token %} 
+                <p>Are you sure you want to delete your rating for {{ rating.course.course_name }} ({{ rating.course }}) ?</p> 
+                <input type="submit" value="Confirm"> 
+            </form> 
+        </div>
+        </div>
+            <br><br><br><br>
+    {% endif %}
+{% endblock %}

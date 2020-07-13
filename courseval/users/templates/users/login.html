@@ -1,0 +1,12 @@
+
+{% load socialaccount %}
+{% providers_media_js %} 
+<!--<meta http-equiv="refresh" content="0;url={% provider_login_url "google" %}" /> -->
+
+<script>
+window.onload = function() {
+    // similar behavior as clicking on a link
+    window.location.href = "{% provider_login_url "google" %}";
+}
+</script>
+ 

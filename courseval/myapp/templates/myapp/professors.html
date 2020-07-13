@@ -1,0 +1,87 @@
+{% extends "myapp/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container-fluid" style="background-color: rgb(255, 255, 224);">
+    <div class="row">
+        <div class="col-lg-3" style="background-color: rgb(255, 255, 224);">
+    <h2>Find your professor:</h2>
+    <hr style="border-color: palevioletred; height: 2px; background-color: palevioletred;">
+    
+   
+    <div class="card">
+      <article class="card-group-item">
+          <header class="card-header">
+              <h4 class="title">By Department: </h4>
+          </header>
+          <form action="{% url 'professors' %}" method="get">
+            <select name="Filter" class="form-control">
+                {% if filter %}
+                  <option value="{{ filter }}" selected>{{ filter }}</option>
+                {% endif %}
+                {% for major in majors %}
+                  <option value="{{ major.0 }}">{{ major.1 }}</option>
+                {% endfor %}
+             </select> <br>
+             <input type="submit" value="Filter" />
+         </form>
+      </article> <!-- card-group-item.// -->
+  </div>
+
+    
+
+    <hr style="border-color: palevioletred; height: 2px; background-color: palevioletred;">
+    <div class="form-group col-lg-4" style="width:100%;">
+    <br> 
+        
+      </div>
+        </div>
+
+        <div class="col-lg-9" style="margin-right: 0px;  background-color: rgb(255, 255, 224);">
+            <div class="row" style="padding-top: 15px;">
+                {% if filter %}
+                      <h2>Showing {{ results }} results for {{ filter }} </h2>
+                    {% endif %}
+                {% for professor in professors %}
+                <a href="{% url 'professor-detail' professor.slug %}">
+                <div class="col-lg-2" style="padding-bottom: 15px;">
+                    <img src="{{professor.prof_pic}}" height="250px" width="250px" alt="" class="img-thumbnail" >
+                    <br>
+                    <a style="color:black;" href="{% url 'professor-detail' professor.slug %}"> {{professor.prof_name}}</a>
+                    <br>
+                    {{professor.get_prof_dep_display}}
+                  </a>
+                </div>
+                {% endfor %}
+                
+            </div>
+            {% if professors.has_other_pages %}
+              <ul class="pagination">
+                {% if professors.has_previous %}
+                  <li><a href="?page={{ professors.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                  <li class="disabled"><span>&laquo;</span></li>
+                {% endif %}
+                {% for i in professors.paginator.page_range %}
+                  {% if professors.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                  {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                  {% endif %}
+                {% endfor %}
+                {% if professors.has_next %}
+                  <li><a href="?page={{ professors.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                  <li class="disabled"><span>&raquo;</span></li>
+                {% endif %}
+              </ul>
+            {% endif %}
+            
+        </div>
+        </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        
+
+{% endblock %}

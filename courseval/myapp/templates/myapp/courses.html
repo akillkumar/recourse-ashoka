@@ -1,0 +1,96 @@
+{% extends "myapp/base.html" %}
+{% block content %}
+{% load static %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3">
+        <h2>Find your courses here:</h2>
+        <hr style="border-color: palevioletred; height: 2px; background-color: palevioletred;">
+        
+        
+        <div class="card">
+            <article class="card-group-item">
+                <header class="card-header">
+                    <h4 class="title">By Department: </h4>
+                </header>
+                <form action="{% url 'courses' %}" method="get">
+                  <select name="Filter" class="form-control">
+                      {% if filter %}
+                        <option value="{{ filter }}" selected>{{ filter }}</option>
+                      {% endif %}
+                      {% for major in majors %}
+                        <option value="{{ major.0 }}">{{ major.1 }}</option>
+                      {% endfor %}
+                   </select> <br>
+                   <input type="submit" value="Filter" />
+               </form>
+            </article> <!-- card-group-item.// -->
+        </div>
+        
+      <hr style="border-color: palevioletred; height: 2px; background-color: palevioletred;">
+      <div class="form-group col-md-3" style="width:100%;">
+        <br> 
+            
+          </div>
+            </div>
+ 
+            <div class="col-lg-8">
+                <div class = "content-section" style="border: white 2px solid" ; >
+                    {% if filter %}
+                      <h2>Showing {{ results }} results for {{ filter }} </h2>
+                    {% endif %}
+                    {% for course in courses %}
+                      <div class="feature">
+                        <a href="{% url 'course-detail' course.slug %}"></a> 
+                        <article class="media content-section border rounded" style= "background-color: rgb(238, 238, 238); ">
+                          <div class="media body">
+                            <div class="course-metadata">
+                                <h3 style="color:Black;">{{ course.course_name }} ({{course.course_listing}}-{{course.course_code}})</a></h1>
+                                <h4> {{ course.course_prof }}</h4>
+                                <h5 style="background-color: maroon; color: white; pointer-events: none;" class="btn  btn-rounded mx-auto font-weight-bold">{{ course.course_rating }} <i class="fas fa-star"></i> rating</h5>
+                                <h5 style="background-color: maroon; color: white; pointer-events: none; margin-left: 10px;" class="btn  btn-rounded mx-3">{{ course.course_difficulty }}  difficulty</h5>
+                                <h5  style="background-color: maroon; color: white; pointer-events: none; margin-left: 10px;" class="btn  btn-rounded mx-auto">{{course.grade_point}} Average Grade </h5>
+                                <h5 style="background-color: maroon; color:  white;pointer-events: none; margin-left: 10px;" class="btn  btn-rounded mx-auto">{{ course.course_number_of_ratings }}  ratings</h5>                     
+                            </div>
+                          </div>
+                        </article>
+                      </div>
+                    {% endfor %}
+                </div>
+                {% if courses.has_other_pages %}
+                  <ul class="pagination">
+                    {% if courses.has_previous %}
+                      <li><a href="?page={{ courses.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                      <li class="disabled"><span>&laquo;</span></li>
+                    {% endif %}
+                    {% for i in courses.paginator.page_range %}
+                      {% if courses.number == i %}
+                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                      {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                      {% endif %}
+                    {% endfor %}
+                    {% if courses.has_next %}
+                      <li><a href="?page={{ courses.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                      <li class="disabled"><span>&raquo;</span></li>
+                    {% endif %}
+                  </ul>
+                {% endif %}
+            </div>  
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <script>
+    
+
+      $(".myBox").click(function() {
+        window.location = $(this).find("a").attr("href"); 
+             return false;
+        });
+    </script>
+{% endblock %}
