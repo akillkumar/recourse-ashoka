@@ -16,24 +16,11 @@
         <h2 class="card-title h1-responsive pt-3 mb-5 font-bold"><strong>{{course.course_name}} <span class="text-primary"> ({{course.course_listing}}-{{course.course_code}}) </span></strong></h2>
         <hr>
         <div class="row">
-          <div class="col-lg-3">
-          
-        <p class="text-left text-warning"> Attendance Policy:
-          {% if course.course_attendance%}
-            Yes
-          
-          {% else %}
-            No
-          {% endif %}
-
-        
-        </p>
-        </div>
         <div class="col-lg-6">
         <a href="{% url 'professor-detail' course.course_prof.slug %}"><p>{{course.course_prof}}  <span style="color:darkblue;"></span></p></a>
         
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-6">
         <a href="{% url 'rate-course' course.slug %}" class="btn btn-danger btn-rounded align-items-right" role="button" aria-pressed="true">Taken this course? Click Here!</a>
       </div>
         </div>
@@ -216,69 +203,73 @@
     <div class="col-sm-12">
      
       <div class="review-block">
+        {% if ratings %}
+          {% for rating in ratings %}
+          {% if rating.review %}
+            <div class="row">
+              <div class="col-sm-2">
+                {% if rating.anonymous %}
+                    <div class="review-block-name"><a href="#">Anonymous</a></div>
+                {% else %}
+                    <div class="review-block-name"><a href="#">{{ rating.author.first_name}} {{rating.author.last_name }}</a></div>
+                {% endif %}
+                <div class="review-block-date">{{ rating.date_posted}}</div>
+                <br>
 
-        {% for rating in ratings %}
-        {% if rating.review %}
-          <div class="row">
-            <div class="col-sm-2">
-              <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-              {% if rating.anonymous %}
-                  <div class="review-block-name"><a href="#">Anonymous</a></div>
-              {% else %}
-                  <div class="review-block-name"><a href="#">{{ rating.author.first_name}} {{rating.author.last_name }}</a></div>
+
+              {% if rating.rating == 1 %} 
+              <span class="glyphicon glyphicon-star"       style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
               {% endif %}
-              <div class="review-block-date">{{ rating.date_posted}}</div>
-              <br>
 
+              {% if rating.rating == 2 %} 
+              <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
+              {% endif %}
 
-            {% if rating.rating == 1 %} 
-            <span class="glyphicon glyphicon-star-empty " style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
-            {% endif %}
+              {% if rating.rating == 3 %} 
+              <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
+              {% endif %}
+              
+              {% if rating.rating == 4 %} 
+              <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
+              {% endif %}
 
-            {% if rating.rating == 2 %} 
-            <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
-            {% endif %}
+              {% if rating.rating == 5 %} 
+              <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+              <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
+              {% endif %}
 
-            {% if rating.rating == 3 %} 
-            <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
-            {% endif %}
-            
-            {% if rating.rating == 4 %} 
-            <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star-empty" style="margin-right:5px; font-size: 22px;"></span>
-            {% endif %}
-
-            {% if rating.rating == 5 %} 
-            <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
-            <span class="glyphicon glyphicon-star" style="margin-right:5px; font-size: 22px;"></span>
-            {% endif %}
-
+              </div>
+              <div class="col-sm-10">              
+                <div class="review-block-title  ">{{ rating.review | linebreaks}}</div>
+              </div>
             </div>
-            <div class="col-sm-10">              
-              <div class="review-block-title  ">{{ rating.review }}</div>
+            <hr style="border: black 1px solid;">
+          {% endif %}
+          {% endfor %}
+        {% else %}
+            <div class="container">
+                <h2>No reviews yet. <a href="{% url 'rate-course' course.slug %}">Write one here!</a></h2>
             </div>
-          </div>
-          <hr style="border: black 1px solid;">
         {% endif %}
-        {% endfor %}
   
   </div> <!-- /container -->
 

@@ -12,41 +12,41 @@ class RatingsForm (forms.ModelForm):
         widgets = {
             'rating': forms.Select(
 				attrs={
-					'class': 'form-control-sm form-group '
+					    'class': 'form-control col-xs-2'
 					}
             ),
 
             'difficulty': forms.Select(
 				attrs={
-					'class': 'form-control-sm form-group '
+					    'class': 'form-control col-xs-2'
 					}
             ),
 
             'grade': forms.Select(
 				attrs={
-					'class': 'form-control-sm form-group '
+					    'class': 'form-control col-xs-2'
 					}
             ),
             
             
-        'take_again': forms.CheckboxInput(
-				attrs={
-					'class': 'form-check-input form-group ',
-                    'type' : 'checkbox'
-					}
-            ),
+            'take_again': forms.CheckboxInput(
+                    attrs={
+                            'class': 'form-check',
+                            'type' : 'checkbox'
+                        }
+                ),
 
             'review': forms.Textarea(
 				attrs={
-					'class': 'form-control-sm form-group',
-                    'rows' : '2',     
-                    'cols' : '30'
-                    
+                        'class': 'form-control col-xs-2',
+                        'placeholder': 'Write a review ... ',
+                        'rows' : '5',     
+                        'cols' : '30',
 					}
             ),
             'anonymous': forms.CheckboxInput(
 				attrs={
-					'class': 'form-control-sm form-group '
+					    'class': 'form-check '
 					}
             )
             }

@@ -5,20 +5,26 @@
     <br>
     <div class="row">
         <div class="col-lg-3">
-            <img src="{{professor.prof_pic}}" alt="" class="img-thumbnail">  
+            <img src="{{professor.prof_pic}}" alt="" class="img-thumbnail hidden-xs" height="250px" width=250px>  
+            <img src="{{professor.prof_pic}}" alt="" class="img-thumbnail visible-xs" style="margin-left: auto; margin-right: auto;  display: block;" height="150px" width=150px>  
+
         </div>
 
-    <h1 style="font-family: 'Poppins', sans-serif; font-size: 40px; font-weight: 900; ">{{professor.prof_name}}</h1>    
-    <h5>Department of {{professor.get_prof_dep_display}} </h5>
+    <h1 style="font-family: 'Poppins', sans-serif; font-size: 40px; font-weight: 900; " class="hidden-xs">{{professor.prof_name}}</h1>   
+    <h1 style="font-family: 'Poppins', sans-serif; font-size: 40px; font-weight: 900; " class="visible-xs text-center">{{professor.prof_name}}</h1>    
+
+    <h5 class="hidden-xs">Department of {{professor.get_prof_dep_display}} </h5>
+    <h5 class="visible-xs text-center">Department of {{professor.get_prof_dep_display}} </h5>
+
     <br>
     <br>
-   <h4> Courses Offered: </h4>
+    </div>
+    <h4> Courses Offered: </h4>
     <ol class="text-left">
     {% for course, name in my_courses %}
      <li> <a href="{% url 'course-detail' course.slug %}">{{ name }} ({{ course }})</a></li>
     {% endfor %}
-    </ol> 
-    </div> 
+    </ol>  
 </div>
 <h2 class="with-line">Cumulative Scores </h2>
 
@@ -26,19 +32,19 @@
     <div class="row text-center">
         <div class="col-lg-3" style="border-right: black 1px solid;">
             <h1 style="font-family: 'Poppins', sans-serif; font-size: 60px; font-weight: 900;">{{prof_rating}}</h1>
-           <h4>Proffesor Rating</h4>  
+           <h4>Average Professor Rating</h4>  
         </div>
         <div class="col-lg-3" style="border-right: black 1px solid;">
             <h1 style="font-family: 'Poppins', sans-serif; font-size: 60px; font-weight: 900;">{{prof_difficulty}}</h1>
-           <h4>Proffesor Difficulty</h4>  
+           <h4>Average Professor Difficulty</h4>  
         </div>
         <div class="col-lg-3" style="border-right: black 1px solid;">
             <h1 style="font-family: 'Poppins', sans-serif; font-size: 60px; font-weight: 900;">{{prof_grade}}</h1>
-           <h4>Proffesor Average Grade Point</h4>  
+           <h4>Average Professor Grade Point</h4>  
         </div>
         <div class="col-lg-3">
             <h1 style="font-family: 'Poppins', sans-serif; font-size: 60px; font-weight: 900;">{{prof_retake}}%</h1>
-           <h4>Retake Percentage</h4>  
+           <h4>Average Retake Percentage</h4>  
         </div>
     </div>
 </div>

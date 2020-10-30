@@ -46,8 +46,8 @@ class Professor (models.Model):
         return reverse ('professor-detail', kwargs = {self.slug} )
 
 class Course (models.Model):
-    course_name         =  models.CharField(max_length = 100, default = "")
-    course_code         =  models.CharField(default = "", max_length=100)            
+    course_name         =  models.TextField(default = "")
+    course_code         =  models.CharField(default = "", max_length=80)            
     course_type         =  models.CharField(max_length = 5, default = "") # major/ FC/ CC etc
     course_description  =  models.TextField(default="")
     

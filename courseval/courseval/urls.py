@@ -22,13 +22,13 @@ from django.urls import path, include
 from users import views as users
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('myapp.urls')),
+    path('dhruvandakhilbffs4eva/', admin.site.urls),
     path('register/', users.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('profile/', users.profile, name = 'profile'),
     path('accounts/', include('allauth.urls')),
+    path('', include('myapp.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 

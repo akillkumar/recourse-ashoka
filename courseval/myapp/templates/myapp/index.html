@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;500;700;900&display=swap" rel="stylesheet"> 
 <div class="site-section container">
     <div class="row">
         <br>
@@ -12,7 +11,7 @@
             <h3 class="display-4" style="font-weight: bold;">Comprehensive list of Courses with ratings and Reviews!</h3>
             <p class="lead">Recourse aims to accumulate a large database of course reviews, and provide a platform to display them. </p>
             <hr style="border:1px solid black">
-            <p>A course reviewing pllatform of the students by the students for the students!</p>
+            <p>These reviews are writen by the students to help the incoming batches make smart choices about their courses.</p>
             <a class="btn btn-primary btn-lg" href="{% url 'courses' %}" role="button">Find Courses</a>
             </div>
         <!-- /.container   -->
@@ -46,24 +45,24 @@
   <br>  
 <div class="container newbox" style="background-color:firebrick;">
 <div class="row newbox">
-  <div class="col-md-4 " style="text-align: center; background-color:firebrick;">
-    <i class="fa fa-code fa-2x"></i>
+  <div class="col-xs-4 " style="text-align: center; background-color:firebrick;">
+    <i class="fa fa-book fa-2x"></i>
     <p class="count-text " style="color: white;">Courses Rated:</p>
-    <h2 class="timer count-title count-number count" data-to="300" data-speed="1500">{{ courses_rated }}</h2>
+    <h2 class="timer count-title count-number count" data-to="300" data-speed="1500" style="color: white;">{{ courses_rated }}</h2>
      
   </div>
 
-  <div class="col-md-4" style="text-align: center; background-color: firebrick;">
-    <i class="fa fa-coffee fa-2x"></i>
+  <div class="col-xs-4" style="text-align: center; background-color: firebrick;">
+    <i class="fa fa-star fa-2x"></i>
     <p class="count-text " style="color: white;">Total Ratings:</p>
-    <h2 class="timer count-title count-number count" data-to="1700" data-speed="1500">{{ total_ratings }}</h2>
+    <h2 class="timer count-title count-number count" data-to="1700" data-speed="1500" style="color: white;">{{ total_ratings }}</h2>
     
   </div>
 
-  <div class="col-md-4" style="text-align: center; background-color: firebrick;">
-    <i class="fa fa-lightbulb-o fa-2x"></i>
+  <div class="col-xs-4" style="text-align: center; background-color: firebrick;">
+    <i class="fa fa-users fa-2x"></i>
     <p class="count-text" style="color: white;">Total Users:</p>
-    <h2 class="timer count-title count-number count" data-to="11900" data-speed="1500">{{ total_users }}</h2>
+    <h2 class="timer count-title count-number count" data-to="11900" data-speed="1500" style="color: white;">{{ total_users }}</h2>
     
   </div>
 
@@ -73,50 +72,30 @@
 </div>
 </div>
 
-
-<!--WIERD COUNTER THING-->
-
-<!--HALL OF FAME-->
 
   <div style="background-image: url({% static 'images/class.jpg' %}); background-repeat: no-repeat; background-size: cover; background-position: center; ">
-    <div style= "background:linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5))">
-
-    <div class="container" style="color: black;">
-      <br>
-      <br>
-      <br>
-      <h1 style="font-family: 'Montserrat', sans-serif; font-weight: 500;" class="text-center">How our ratings work</h1>
-      <br>  
-      <br>
-<h2 style="font-family: 'Montserrat', sans-serif;; text-decoration: underline;">Each course is given three metrics: </h2>
-<ol style="list-style-type: lower-roman; font-size: large; color: rgb(255, 255, 255); font-weight: bold;" >
-  <li> Rating: Overall rating of the course (out of 5). </li>
-  <li> Difficulty: The difficulty of the course in terms of material/exams and scoring (out of 5).</li>
-  <li> Retake %: The percentage of people who would retake the course. </li>
-</ol>
-<br>
-<br>
-<h4 style="font-weight: bold;"> Professor ratings are averages of all courses that they have offered.</h4>
-<h4 style="font-weight: bold;"> Ratings can only be submitted by users with an ashoka id.</h4>
-<h5 style="color:black;">(Please be mindful of the language you use. NSFW reviews will be removed.)</h5>
-<br>
-<br>
-<br>  
-<br>
-<br>
-
-</div>
-
-</div>
-</div>
-<!--PROFESSOR RATING ENDS HEREEEEEEEEEEE-->
-<br>
-<br>
-
-
-<br>
-
-<br>
-<br>
+    <div style= "background:linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3))">
+      <br><br>
+      <div class="container" style="color: black;">
+        <br><br>
+        <h1 style="font-family: 'Bebas Neue', cursive; font-weight: 400; font-size: 65px; letter-spacing: 2px;" class="text-center">How our ratings work</h1>
+        <br>  
+        <br>
+        <h2 style="font-family: 'Varela', sans-serif; font-weight:500;">Each course is given three metrics: </h2>
+        <ol style="font-family: 'Montserrat', sans-serif; list-style-type: lower-roman; font-size: large; color: black; font-weight: bold;" >
+          <li> Rating: Overall rating of the course (out of 5). </li>
+          <li> Difficulty: The difficulty of the course in terms of material/exams and scoring (out of 5).</li>
+          <li> Retake %: The percentage of students who would retake the course. </li>
+        </ol>
+        <br>
+        <br>
+        <h2 style="font-family: 'Varela', sans-serif; font-weight:500;">Professor ratings are averages of all the courses they offer.</h2>
+        <br><br>
+        <h4 style="font-weight: bold;" class="text-center"> Ratings can only be submitted by users with an Ashoka email ID.</h4>
+        <h5 style="color:black;" class="text-center">(Please be mindful of the language you use. NSFW reviews will be removed.)</h5>
+        <br><br><br>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 </html>

@@ -33,6 +33,10 @@ urlpatterns = [
     path('search/', views.search, name="global-search"),
     # ratings
     path('delete/<int:pk>', views.delete_rating, name="delete-rating"),
+    # 404
+    path('<str:error>/', views.get_404, name="get-404"),
+    path('courses/<str:error>/', views.get_404, name="get-404"),
+    path('professors/<str:error>/', views.get_404, name="get-404"),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 

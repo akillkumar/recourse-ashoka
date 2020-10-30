@@ -7,20 +7,30 @@
     <h2 class="with-line">Courses</h2>
     <div class="row">
         {% for course in courses %}
-        <article class="media content-section border rounded" style= "background-color: rgb(238, 238, 238); ">
-            <div class="media body">
-                <div class="course-metadata">
-                    <h3> <a href="{% url 'course-detail' course.slug %}" style="color:Black;">{{ course.course_name }} ({{course.course_listing}}-{{course.course_code}})</a></h1>
+            <div class="feature">
+                <a href="{% url 'course-detail' course.slug %}"></a> 
+                <article class="media content-section border rounded" style= "background-color: rgb(238, 238, 238); ">
+                <div class="media body">
+                    <div class="course-metadata text-left" style="padding-right:0px; margin-right:none">
+                    <h3 style="color:Black;">{{ course.course_name }} ({{course.course_listing}}-{{course.course_code}})</a></h1>
                     <h4> {{ course.course_prof }}</h4>
-                    <h5 style="background-color: maroon; color: white; pointer-events: none; " class="btn  btn-rounded mx-auto font-weight-bold">{{ course.course_rating }} <i class="fas fa-star"></i> rating</h5>
-                    <h5 style="background-color: maroon; color: white; pointer-events: none;" class="btn  btn-rounded mx-3">{{ course.course_difficulty }} <i class="fas fa-thermometer-quarter"></i> difficulty</h5>
-                    <h5  style="background-color: maroon; color: white; pointer-events: none;" class="btn  btn-rounded mx-auto">{{course.grade_point}} <i class="fas fa-tachometer-alt"></i> Grade </h5>
-                    <h5 style="background-color: maroon; color:  white;pointer-events: none;" class="btn  btn-rounded mx-auto">{{ course.course_number_of_ratings }}   <i class="fas fa-calculator"></i> ratings</h5>
-
-                        
+                    <h5 style="background-color: maroon; color: white; pointer-events: none; margin-left: 10px;" class="btn  btn-rounded mx-auto font-weight-bold">{{ course.course_rating }} <i class="fas fa-star"></i> Rating</h5>                               
+                    <h5 style="background-color: maroon; color: white; pointer-events: none; margin-left: 10px;" class="btn  btn-rounded mx-3">{{ course.course_difficulty }}  Difficulty</h5>                                                                                            
+                    <h5 style="background-color: maroon; color: white; pointer-events: none; margin-left: 10px;" class="btn  btn-rounded mx-auto hidden-xs">{{course.grade_point}} Average Grade </h5> 
+                    <h5 style="background-color: maroon; color: white; pointer-events: none; margin-left: 10px;" class="btn  btn-rounded hidden-xs" >{{ course.course_number_of_ratings }}  Ratings</h5>                    
+                    
+                    <div class="row"> 
+                        <div class="col-xs-7"> 
+                    <h5  style="background-color: maroon; color: white; pointer-events: none; margin-left: 0px; " class="btn  btn-rounded mx-auto visible-xs">{{course.grade_point}} Average Grade </h5>  
+                        </div> 
+                        <div class="col-xs-4" style="margin-left: 0px; padding-left:0px ;">  
+                    <h5 style="background-color: maroon; color:  white;pointer-events: none; " class="btn  btn-rounded visible-xs" >{{ course.course_number_of_ratings }}  ratings</h5>                     
+                        </div>  
                 </div>
-            </div>
-            </article>  
+                    </div>
+                </div>
+                </article>
+            </div>  
         {% endfor %}
     </div>
 </div>

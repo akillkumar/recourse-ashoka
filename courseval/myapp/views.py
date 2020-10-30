@@ -35,8 +35,13 @@ def index (request):
         return render(request, "myapp/search_results.html",  context)
 
     # get additional context data
+    rated = 0
+    for course in Course.objects.all():
+        if course.course_number_of_ratings != 0:
+            rated += 1
+    
+    context['courses_rated'] = rated
     context['total_ratings'] = len(Rating.objects.all())
-    context['courses_rated'] = len(Course.objects.all())
     context['total_users']   = len(User.objects.all())
     
     return render(request, "myapp/index.html", context)
@@ -114,7 +119,7 @@ def list_courses (request):
             courses = paginator.page(paginator.num_pages)
     else:
         courses = Course.objects.filter(course_listing='FC').order_by('course_name')
-        context['filter']  = "Foundation Course"
+        context['filter']  = "FC"
         context['results'] = len(courses)
     
     context['courses'] = courses
@@ -143,7 +148,7 @@ def course_detail (request, slug):
     context = {
         'course': course,
         'title': course.course_name,
-        'ratings': Rating.objects.filter (course = course),
+        'ratings': list(set(Rating.objects.filter (course = course))),
     }
 
     retakes = 0
@@ -258,6 +263,7 @@ def prof_detail (request, slug):
     } 
 
     courses = Course.objects.filter (course_prof = prof)
+    rated_courses = 0
 
     course_names = []
 
@@ -265,6 +271,7 @@ def prof_detail (request, slug):
     prof_difficulty = 0
     prof_retake     = 0
     prof_grade      = 0
+    prof_total      = 0
 
     # get cumulative stats from prof's courses
     for course in courses:
@@ -272,15 +279,25 @@ def prof_detail (request, slug):
         prof_grade      += course.grade_point
         prof_retake     += course.course_retakers
         prof_difficulty += course.course_difficulty
+        prof_total      += course.course_number_of_ratings
+
+
+        if course.course_number_of_ratings != 0:
+            rated_courses += 1
 
         course_names.append(course.course_name)
 
     # calculate averages
-    if courses:
-        prof_rating     =round (prof_rating/len(courses),2)
-        prof_grade      = round(prof_grade/len(courses),2)
-        prof_retake     = round((prof_retake/len(courses))*100)
-        prof_difficulty =round(prof_difficulty/len(courses),2)
+    if rated_courses != 0:
+        prof_rating     = round (prof_rating/ rated_courses,2)
+        prof_grade      = round(prof_grade/ rated_courses,2)
+        prof_retake     = round((prof_retake/ prof_total)*100)
+        prof_difficulty = round(prof_difficulty/ rated_courses,2)
+    else:
+        prof_rating     = 0
+        prof_grade      = 0
+        prof_retake     = 0
+        prof_difficulty = 0
 
     my_courses = zip(courses, course_names)
 
@@ -329,7 +346,7 @@ def RateCourse (request, slug):
             rating.save() # Finally save it!
             messages.success(request, f'Your rating has been recorded!') # send visual confirmation to user
             # also update course stuff
-            myCourse.course_number_of_ratings+=1
+            myCourse.course_number_of_ratings += 1
 
             if rating.take_again:
                 myCourse.course_retakers += 1
@@ -375,9 +392,17 @@ def RateCourse (request, slug):
 
             myCourse.rating_sum += rating.rating
             myCourse.difficulty_sum += rating.difficulty
+
             if myCourse.course_number_of_ratings!=0:
                 myCourse.course_rating = myCourse.rating_sum/myCourse.course_number_of_ratings
                 myCourse.course_difficulty = myCourse.difficulty_sum/myCourse.course_number_of_ratings
+
+            if myCourse.course_rating > 5:
+                myCourse.course_rating = 5
+            
+            if myCourse.course_difficulty > 5:
+                myCourse.course_difficulty = 5
+
             # update average difficulty  
             myCourse.save()
             return redirect('course-detail', slug=slug)
@@ -422,13 +447,26 @@ def delete_rating (request, pk):
         'rating': rating,
     }
 
-    # if someone other than the author tryna delete xwe throw an error
+    # if someone other than the author tryna delete, throw an error
     if rating.author != request.user:
-        context['error'] = 'Segmentation fault, core dumped'
+        context['error'] = 'Whoops, Looks like you\'re not authorized to delete this rating :/'
 
 
     if request.method == "POST":
         rating.delete()
+        myCourse = rating.course
+        myCourse.course_number_of_ratings -= 1
+        
+        myCourse.rating_sum -= rating.rating
+        myCourse.difficulty_sum -= rating.difficulty
+
+        if rating.take_again:
+            myCourse.course_retakers -= 1
+        
+        if myCourse.course_number_of_ratings!=0:
+            myCourse.course_rating = myCourse.rating_sum/myCourse.course_number_of_ratings
+            myCourse.course_difficulty = myCourse.difficulty_sum/myCourse.course_number_of_ratings
+
         return redirect ('profile')
     
     if request.GET:
@@ -485,3 +523,9 @@ def get_global_queryset (query=None):
     
     # make sure its unique
     return list(set(course_list)), list(set(prof_list))
+
+def get_404 (request, error):
+    context = {
+        'title': 'Page does not exist',
+    }
+    return render (request, 'myapp/404.html', context)

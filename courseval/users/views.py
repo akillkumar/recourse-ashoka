@@ -36,8 +36,9 @@ def profile (request):
     }
 
     # Regular context stuff
-    my_ratings = Rating.objects.filter (author = request.user)
+    my_ratings = Rating.objects.filter (author = request.user).order_by('date_posted')
     context['ratings'] = my_ratings
+    context['total']   = len(my_ratings)
 
     if request.method == "POST": 
         update_form = UpdateForm(request.POST, instance=request.user)
